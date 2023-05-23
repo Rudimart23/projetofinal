@@ -3,8 +3,9 @@
     Created on : 10 de mai. de 2023, 19:25:10
     Author     : QI
 --%>
-<%@page  import="model.ArtistaDAO" %>
-<%@page  import="model.Artista" %>
+
+<%@page import="model.ArtistaDAO" %>
+<%@page import="model.Artista" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,8 @@
     <body>
         <h1>Lista</h1>
         <hr>
-          <table border="1">
+        
+        <table border="1">
             <thead>
                 <tr>
                     <th>COD</th>
@@ -28,40 +30,40 @@
                 </tr>
             </thead>
             <tbody>
-                    <%ArtistaDAO adao = new ArtistaDAO();
+                <%
+                    ArtistaDAO adao = new ArtistaDAO();
                     for(Artista art : adao.listAll()) {
-                    %>
+                %>
                 <tr>
-                    <td><%= art.getIdArtista()%></td>
-                    <td><%= art.getArtista()%></td>
-                    <td><%= art.getArtista()%></td>
-                    <td><%= art.getGenero()%></td>
-                    <td><%= art.getSolo()%></td>
+                    <td><%= art.getIdArtista() %></td>
+                    <td><%= art.getArtista() %></td>
+                    <td><%= art.getGenero() %></td>
+                    <td><%= art.getNacionalidade() %></td>
+                    <td><%= art.getSolo() %></td>
                     <td>
-                        <a href="ArtistaUpdate?id=">EDITAR</a>
+                        <a href="ArtistaUpdate?id=<%= art.getIdArtista() %>">EDITAR</a>
                     </td>
                     <td>
-                        <a onclick="confirmeDelete()">EXCLUIR
-                        </a>
+                        <a onclick="confirmDelete(<%= art.getIdArtista() %>)">EXCLUIR</a>
                     </td>
                 </tr>
-                <%  }  %>
-                
+                <% } %>
             </tbody>
-        
         </table>
+
+        
         <hr>
         <a href="home.jsp" >Pagina inicial</a>
         
         <script>
-            function confirmeDelete(){
+            function confirmDelete(id) {
                 if(confirm("Deseja realmente excluir?")) {
-                    window.location.replace("ArtistaDelet?cod=");
-                }else{
-                    alett("Exclusão cancelada!");
+                    window.location.replace("ArtistaDelete?cod="+id);
+                } else {
+                    alert("Exclusão cancelada!");
                 }
             }
-            </script>
+        </script>
         
     </body>
 </html>
